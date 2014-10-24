@@ -1,0 +1,18 @@
+<polymer-element name="content-wrapper">
+  <template>
+    <style>
+      .polymer-content { border: 1px inset; }
+    </style>
+    <div class="polymer-content">
+      <p class="test-isolation">
+        HTML passed as content to a polymer element does not exist in the shadow
+        DOM so it does not have CSS isolation. This paragraph is isolated though.
+      </p>
+      <content></content>
+    </div>
+  </template>
+  <script>
+    Polymer({
+    });
+  </script>
+</polymer-element>

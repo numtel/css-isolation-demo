@@ -1,0 +1,101 @@
+<head>
+  <title>iframe-example</title>
+  <link rel="import" href="polymer-parameter-example.html">
+  <link rel="import" href="polymer-content-wrapper.html">
+</head>
+
+<body>
+  <h1>CSS Isolation in Meteor Components Comparison</h1>
+  <table border="1">
+    <thead>
+      <tr>
+        <th>Isolation option</th>
+        <th>Advantages</th>
+        <th>Disadvantages</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>iframe</td>
+        <td>
+          <ul>
+            <li>Use the same Meteor templates, with reactivity</li>
+            <li>Least amount of work to get working</li>
+            <li>Completely cross-browser friendly</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Not exciting tech</li>
+            <li>LESS must be compiled separately</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>Polymer WebComponent</td>
+        <td>
+          <ul>
+            <li><em>Anything?</em></li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Templates must exist in HTML files outside of Meteor Templates (./public/) or managed in Javascript.</li>
+            <li>No way to specify parameters except as element attributes</li>
+            <li>No integration of events with Meteor</li>
+            <li>Large dependency</li>
+            <li>LESS must be compiled separately</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>X-Tags WebComponent</td>
+        <td>
+          <ul>
+            <li><em>Anything?</em></li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>Templates must be managed in Javascript</li>
+            <li>Although lighter weight dependency, shadow dom is an optional extra. This means that unless a modern browser that supports shadow dom is used, the template will not have isolated css without the extra package.</li>
+            <li>LESS must be compiled separately</li>
+          </ul>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p>For more information, <a href="http://pascalprecht.github.io/2014/07/21/polymer-vs-x-tag-here-is-the-difference/">Polymer vs. X-Tag - Here's the Difference</a></p>
+  <p>The following examples are best viewed with the source code in view.</p>
+  <p><a href="https://github.com/numtel/css-isolation-demo">View Repo on Github</a></p>
+  <p>
+    The paragraph under the 'Click Me' button has a <code>test-isolation</code> class added.
+    Elements with a <code class="test-isolation">test-isolation</code> class
+    should not have <code>color: #f00</code> applied.
+  </p>
+  <h2>Render template inside iframe</h2>
+  <p>In this example, the <code>hello</code> template is rendered inside of an iframe with CSS rendered from LESS on the fly</p>
+  {{> iframeTemplate src="hello" less=less}}
+  <h2>Render template inside Polymer element</h2>
+  <p>In this example, the <code>hello</code> template is rendered inside of a polymer element's content.</p>
+  {{> polymerExample }}
+  <h2>Pass argument to Polymer element</h2>
+  <p>In this example, an array is passed as an argument to a polymer element. Only string values are able to be transferred.</p>
+  {{> polymerArgExample }}
+</body>
+
+<template name="hello">
+  <button>Click Me</button>
+  <p class="test-isolation">You've <em>pressed</em> the button {{counter}} times.</p>
+</template>
+
+
+<template name="polymerExample">
+  <content-wrapper>
+    {{> hello}}
+  </content-wrapper>
+</template>
+
+<template name="polymerArgExample">
+  <parameter-example value="{{arrayTest}}"></parameter-example>
+</template>
