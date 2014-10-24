@@ -1,0 +1,56 @@
+<polymer-element name="velocity-reporter" attributes="data">
+  <template>
+    <style>
+      :host {
+        border: 1px inset;
+        background: #f5f5f5;
+        padding: 20px;
+        display: block;
+      }
+      .framework {
+        padding: 0 0 0 20px;
+      }
+      .section {
+        padding: 0 0 0 20px;
+      }
+      .test {
+        padding: 0 0 0 20px;
+      }
+    </style>
+    <template repeat="{{data}}">
+      <div class="framework">
+        <h1>{{name}}</h1>
+        <template repeat="{{children}}" id="test">
+          <template if="{{children}}">
+            <div class="section">
+              <h2>{{title}}</h2>
+              <template ref="test" repeat="{{children}}"></template>
+            </div>
+          </template>
+          <template if="{{result}}">
+            <div class="test">
+              <h3>{{title}}</h3>
+              <template if="{{result == 'pending'}}">
+                <div class="pending">Pending...</div>
+              </template>
+              <template if="{{result == 'passed'}}">
+                <div class="passed">Passed!</div>
+                <div class="duration">{{duration}} ms</div>
+              </template>
+              <template if="{{result == 'failed'}}">
+                <div class="failed">Failed!</div>
+                <div class="duration">{{duration}} ms</div>
+                <div class="stack">{{stack}}</div>
+              </template>
+            </div>
+          </template>
+        </template>
+      </div>
+    </template>
+  </template>
+  <script>
+    Polymer({
+      data: []
+    });
+  </script>
+</polymer-element>
