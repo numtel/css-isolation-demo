@@ -2,7 +2,7 @@
   <title>CSS Isolation Comparison</title>
 
   <!-- Load Polymer Example -->
-  <link rel="import" href="velocity-reporter.html">
+  <link rel="import" href="polymer-example.html">
 </head>
 
 <body>
@@ -11,79 +11,79 @@
   <table border="1" cellpadding="10">
     <thead>
       <tr>
-        <th>Isolation option</th>
+        <th>#</th>
+        <th>Option</th>
         <th width="45%">Advantages</th>
         <th width="45%">Disadvantages</th>
       </tr>
     </thead>
     <tbody>
       <tr>
+        <td>1</td>
+        <td>X-Tags WebComponent</td>
+        <td>
+          <ul>
+            <li>Use Meteor template, reactively</li>
+            <li>Light footprint: 17kb gzipped</li>
+          </ul>
+        </td>
+        <td>
+          <ul>
+            <li>LESS must be compiled separately</li>
+          </ul>
+        </td>
+      </tr>
+      <tr>
+        <td>2</td>
         <td>iframe</td>
         <td>
           <ul>
-            <li>Use the same Meteor templates, with reactivity</li>
-            <li>Least amount of work to get working</li>
+            <li>Use Meteor template, reactively</li>
             <li>Completely cross-browser friendly</li>
           </ul>
         </td>
         <td>
           <ul>
-            <li>Not exciting tech</li>
             <li>LESS must be compiled separately</li>
           </ul>
         </td>
       </tr>
       <tr>
+        <td>3</td>
         <td>Polymer WebComponent</td>
         <td>
           <ul>
-            <li>Super cool markup</li>
             <li>Existing Meteor package: <code>ecwyne:polymer</code></li>
           </ul>
         </td>
         <td>
           <ul>
-            <li>Templates must exist in HTML files outside of Meteor Templates (./public/) or managed in Javascript.</li>
-            <li>Data passed as element attributes, very long element attributes (or as XML-esque child DOM that would need to be parsed...)</li>
-            <li>No integration of events with Meteor?</li>
-            <li>Large dependency</li>
-            <li>LESS must be compiled separately</li>
-          </ul>
-        </td>
-      </tr>
-      <tr>
-        <td>X-Tags WebComponent</td>
-        <td>
-          <ul>
-            <li>Lower footprint than polymer</li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li>Templates must be managed in Javascript</li>
-            <li>No existing Meteor package (not necessarily an issue)</li>
-            <li>Although lighter weight dependency, shadow dom is an optional extra. This means that unless a modern browser that supports shadow dom is used, the template will not have isolated css without the extra package.</li>
+            <li>Doesn't use Meteor template</li>
+            <li>Data passed on element attributes (as JSON), or as XML-esque child elements (eek)</li>
+            <li>Largest dependency: 70kb gzipped</li>
             <li>LESS must be compiled separately</li>
           </ul>
         </td>
       </tr>
     </tbody>
   </table>
-  <p>For more information, see <a href="http://pascalprecht.github.io/2014/07/21/polymer-vs-x-tag-here-is-the-difference/">Polymer vs. X-Tag - Here's the Difference</a>.</p>
-  <h2>Render template inside iframe</h2>
+  <h2>X-Tags WebComponent</h2>
   <ul>
-    <li>Nothing had to change to the template.</li>
-    <li>The styles are fed through LESS rendering on the server. Probably best to go with pre-compiled LESS on production package.</li>
+    <li>Any events would need to be specifically coded on the xtag definition. (Or a translation layer...)</li>
+  </ul>
+  {{> xtagExample }}
+  <h2>iframe</h2>
+  <ul>
+    <li>Styles are fed through LESS rendering on the server. Probably best to go with pre-compiled LESS on production package.</li>
   </ul>
   {{> iframeTemplate src="hello" less=less}}
-  <h2>Use Polymer to display JSON data in a WebComponent</h2>
+  <h2>Polymer WebComponent</h2>
   <ul>
     <li>Last test duration reactively set to 'Click Me' counter.</li>
-    <li>Styles successfully isolated.</li>
   </ul>
   {{> polymerExample }}
   <hr>
-  <p>Prepared by <a href="http://github.com/numtel">Ben Green</a></p>
+  <p>Prepared by <a href="http://github.com/numtel">Ben Green</a> on October 24, 2014</p>
 </body>
 
 <template name="hello">
@@ -92,5 +92,9 @@
 </template>
 
 <template name="polymerExample">
-  <velocity-reporter data="{{testData}}"></velocity-reporter>
+  <polymer-example data="{{testData}}"></polymer-example>
+</template>
+
+<template name="xtagExample">
+  <template-component src="hello"></template-component>
 </template>
