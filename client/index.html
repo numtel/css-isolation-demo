@@ -8,6 +8,7 @@
 <body>
   <a id="fork" href="https://github.com/numtel/css-isolation-demo">View Repo on Github</a>
   <h1>CSS Isolation in Meteor Components Comparison</h1>
+  <p>From these results, <a href="https://github.com/numtel/meteor-webcomponent">numtel:webcomponent</a> has been created.</p>
   <table border="1" cellpadding="10">
     <thead>
       <tr>
@@ -29,7 +30,6 @@
         </td>
         <td>
           <ul>
-            <li>LESS must be compiled separately</li>
           </ul>
         </td>
       </tr>
@@ -61,16 +61,12 @@
             <li>Doesn't use Meteor template</li>
             <li>Data passed on element attributes (as JSON), or as XML-esque child elements (eek)</li>
             <li>Largest dependency: 70kb gzipped</li>
-            <li>LESS must be compiled separately</li>
           </ul>
         </td>
       </tr>
     </tbody>
   </table>
   <h2>X-Tags WebComponent</h2>
-  <ul>
-    <li>Any events would need to be specifically coded on the xtag definition. (Or a translation layer...)</li>
-  </ul>
   {{> xtagExample }}
   <h2>iframe</h2>
   <ul>

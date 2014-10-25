@@ -41,9 +41,10 @@ xtag.register('template-component', {
   },
   methods: {
     uiSetTemplate: function () {
-      this.shadowRoot.innerHTML = templateHeader;
+      this.shadowRoot.innerHTML = templateHeader + '<div></div>';
+      this.blazeRoot = this.shadowRoot.querySelector('div');
       if(this.src){
-        Blaze.render(Template[this.src], this.shadowRoot);
+        Blaze.render(Template[this.src], this.blazeRoot);
       }
     }
   }
